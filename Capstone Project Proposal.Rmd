@@ -1,0 +1,80 @@
+---
+#title: "Capstone Project Proposal"
+#author: "Anuradha Pani"
+#date: "2/21/2018"
+output: html_document
+---
+
+## Capstone Project Proposal
+######## *Introduction to Data Science by Springboard*
+### A Home Mortgage Loan Analysis 
+##### By Anuradha Pani
+***
+
+### Introduction
+Real estate sales is a key indicator of the health of an economy, more so, home ownership not only builds wealth for the home owner but also contributes to the growth of economy and job creation.
+
+
+### The Problem
+For most people, owning a home or making home improvements, necessitates taking out a loan, however the approval of such a loan by a financial institution depends on many factors. The goal of this project is to determine if, given certain characteristics of the borrower and the lender, can the outcome of a loan origination be predicted, i.e. whether a loan will be approved or denied. Furthermore, this project aims to explore if there are any trends or patterns in lending activities of financial institutions and how they relate to borrower characteristics and demographics.
+
+
+### The Client
+The main clients for this analysis are:
+
+* Public officials: this analysis will help them  determine if the financial institutions are serving the needs of their communities, i.e. are they approving enough home loans which eventually leads to the financial betterment of the local communities.
+
+* Government officials: this report will help them decide how best to allocate public-sector investments, in order to attract private  investments to areas where it is needed.
+
+* Regulatory boards such as the CFPB ( Consumer Financial Protection Bureau): this analysis will assist in identifying discriminatory lending patterns, if any.
+
+
+### The Data
+The data for this project is the Home Mortgage Disclosure Act (HMDA) data for the state of New York, for the year 2015. This dataset was compiled by CFPB. This dataset contains about 440K records and 78 columns. This dataset was accessed from  [*ny_hmda_2016.csv*](https://www.kaggle.com/prakriti73/hmda-dataset-for-new-york/downloads/ny_hmda_2015.csv) 
+
+
+### The Approach
+The following steps highlight the strategy to be adopted for carrying out the analysis for the Capstone project:
+
+1. Data Wrangling and Cleaning
+	+ Deal with missing values: Use domain information to determine if missing values should be discarded
+	+ Dropping columns that are irrelevant to the analysis
+	+ Rearrange and transform dataset for cleaner analysis.
+
+        
+	
+2. Exploratory Data Analysis
+	+ Perform Regression Analysis to determine factors that most influence the outcome of loan origination
+	+ Identify patterns and correlation between the different variables
+	+ Use data visualization for graphical analysis to answer questions on the dataset
+3. Predictive Analysis
+	+ Apply machine learning techniques to see if the outcome of a home loan origination (i.e. loan approved or denied) can be predicted based on borrower and lender characteristics
+
+
+### The Deliverables
+The deliverables for this project will include a report of all the findings, a slide deck and R code, all of which will be published on GitHub.
+
+
+### Specific questions to be explored
+1.	Does the ethnicity of population segments influence the outcome?
+2.	Is race an influencing factor in accessing mortgage credit?
+3.	How much does the rate of loan approval vary between population segments of different ethnicities and races?
+4.	Does the applicant’s annual income play a role in the outcome?
+5.	Does the gender of the applicant play a role in determining the outcome?
+6.	How are loan approval rates distributed between neighborhoods of different median incomes ?
+7.	What is the distribution of loan approvals/denials among neighborhoods of different ethnicities?
+8.	What is the distribution of the different actions taken during the loan origination process? Does it depend on ethnicity or race?
+9.	Does the presence of a co-applicant affect the outcome?
+10.	Is co-applicant gender a significant factor in determining outcome?
+11.	What is the distribution of loan approval rates among different MSAs, counties and census tracts?
+12.	What is the distribution of property types among the loans that are approved and denied?
+13.	What is the most common loan denial reason?
+14.	How are mortgage types distributed among approved loans?
+15.	How do HOEPA status and Lien status affect the outcome of a loan origination?
+16.	Does the type of loan affect the outcome?
+17.	How is owner occupancy distributed among races and ethnic groups? Is this a factor in determining outcome of a loan?
+18.	Is the loan pre-approval status a significant factor?
+
+
+ 
+
