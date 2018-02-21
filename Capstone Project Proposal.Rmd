@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ## Capstone Project Proposal
-######## *Introduction to Data Science by Springboard*
+###### *Introduction to Data Science by Springboard*
 ### A Home Mortgage Loan Analysis 
 ##### By Anuradha Pani
 ***
