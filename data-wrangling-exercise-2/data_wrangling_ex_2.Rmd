@@ -1,0 +1,82 @@
+---
+title: "Data Wrangling Exercise 2"
+author: Anuradha Pani
+output: html_notebook
+---
+***
+### Prerequisites
+Install all required packages and load them to R 
+```{r}
+library(tidyverse)
+library(data.table)
+```
+
+0: Load Titanic data into R  
+All input and output data/CSV files are in a dircetory named "data", in the current working dircetory.
+```{r}
+titanic <- fread("data/titanic_original.csv")
+head(titanic)
+tail(titanic)
+```
+  
+1: Port of Embarkation
+```{r}
+# Port of embarkation
+# Check to see how many missing values are there before correction
+#sum(titanic$embarked == "" | is.na(titanic$embarked))
+
+# Replace missing values (NA or empty strings) with "S"
+titanic$embarked[titanic$embarked == "" | is.na(titanic$embarked)] <- "S"
+
+# Check to see how many missing values are there after correction: should be zero.
+#sum(titanic$embarked == "" | is.na(titanic$embarked))
+
+```
+
+2: Age
+```{r}
+# Age 1. replace missing values with mean age
+titanic$age[is.na(titanic$age)] <- mean(titanic$age, na.rm = TRUE)
+```
+
+Age: Other ways to replace missing age
+We can adopt the following two strategies:  
+1. Find the age, which has the largest count and use that  
+```{r}
+titanic %>% 
+  group_by(age) %>% 
+  summarise(cnt = n()) %>% 
+  arrange(desc(cnt))
+```  
+2. Use the median value  
+```{r}
+#titanic$age[is.na(titanic$age)] <- median(titanic$age, na.rm = TRUE)
+```
+  
+3. Lifeboat
+```{r}
+# Fill missing values with a dummy string
+titanic$boat[is.na(titanic$boat) | titanic$boat == ""] <- "NA"
+```
+  
+    
+4. Cabin
+```{r}
+titanic <- titanic %>% 
+        mutate(has_cabin_number = ifelse(titanic$cabin == "", 0,1))
+
+# Display new column to verify
+titanic %>% 
+        select(cabin, has_cabin_number) %>% 
+        head(15)
+```
+
+Write the final data table/data frame to a CSV, "titanic_cleaned.csv", in the data directory
+```{r}
+write_csv(titanic, "data/titanic_cleaned.csv")
+
+# Display the final clean data table
+head(titanic, 25)
+```
+### End
+***
