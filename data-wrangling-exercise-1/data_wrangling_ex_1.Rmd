@@ -1,0 +1,108 @@
+---
+title: "Data Wrangling Exercise 1"
+author: "Anuradha Pani"
+output: html_notebook
+---
+
+### Prerequisites
+Install all required packages and load them to R      
+```{r}
+# Packages required:
+library(tidyverse)
+```
+      
+0: Load the CSV into an R dataframe.  
+All CSV files are in a directory called 'data', which is in the current working directory
+```{r}
+# 0: Load data in RStudio
+# NOTE: 
+brands <- suppressMessages(read_csv("data/refine_original.csv"))
+head(brands, 15)
+```
+  1: Clean brand names  
+  
+```{r}
+# 1: Clean up brand names
+# Change all case to lower first
+brands$company <- tolower(brands$company)
+
+# Use regular expression to clean brad names
+# philips
+pattern_phil = "^[pf].*ps$"
+replace_phil = "philips"
+brands$company <- gsub(pattern_phil, replace_phil, brands$company)
+
+# akzo
+pattern_akzo = "^[ak].*[o0]$"
+replace_akzo = "akzo"
+brands$company <- gsub(pattern_akzo, replace_akzo, brands$company)
+
+# van houten
+pattern_vh = "^van.*ten$"
+replace_vh = "van houten"
+brands$company <- gsub(pattern_phil, replace_phil, brands$company)
+
+# unilever
+pattern_uni = "^uni.*"
+replace_uni = "unilever"
+brands$company <- gsub(pattern_uni, replace_uni, brands$company)
+```
+
+2: Separate product code and number
+First, we'll rename column for Product code and number, so that it can be used easily with tidyr functions.
+```{r}
+# 2: Separate product code and number
+# Rename second column
+colnames(brands)[2] <- "product_code_num"
+
+# Will use the separate() function from tidyr
+brands <- separate(brands, product_code_num, c("product_code", "product_number"), sep = "-")
+```
+
+3: Add product categories
+```{r}
+# Add a column for product categories
+brands <-brands %>% 
+        mutate(product_category =
+                       ifelse(product_code == "p", "Smartphone", 
+                              ifelse(product_code == "q", "Tablet", 
+                                     ifelse(product_code == "v", "TV", 
+                                            ifelse(product_code == "x", "Laptop", NA)))))
+
+
+```
+
+4: Add Full Address for Geocoding
+Combine the address, city and country columns separated by a comma
+```{r}
+# 4: Add full address for geocoding
+brands <- brands %>% 
+        mutate(full_address = paste(address, city, country, sep = ","))        
+```
+
+5: Create dummy variable for product category and company name
+```{r}
+# 5: Create dummy variable for product category and company name
+## Dummy company names
+brands <- brands %>% 
+        mutate(company_philips = ifelse(company == "philips", 1, 0)) %>% 
+        mutate(company_akzo = ifelse(company == "akzo", 1, 0)) %>% 
+        mutate(company_van_houten = ifelse(company == "van_houten", 1, 0)) %>% 
+        mutate(company_unilever = ifelse(company == "unilever", 1, 0))
+
+
+## Dummy product categories
+brands <- brands %>% 
+        mutate(product_smartphone = ifelse(product_code == "p", 1, 0)) %>% 
+        mutate(product_tv = ifelse(product_code == "v", 1, 0)) %>% 
+        mutate(product_laptop = ifelse(product_code == "x", 1, 0)) %>% 
+        mutate(product_tablet = ifelse(product_code == "q", 1, 0))
+```
+
+Write final dataframe to "refine_clean.csv"
+```{r}
+write_csv(brands, "data/refine_clean.csv")
+
+# Display final clean dataframe
+head(brands, 15)
+```
